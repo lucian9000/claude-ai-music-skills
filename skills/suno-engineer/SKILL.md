@@ -16,6 +16,12 @@ allowed-tools:
   - bitwize-music-mcp
 ---
 
+## Suno v6 routing (additive)
+
+For Suno **v6**, **v6-wild**, or **v6-mini** requests, use the dedicated `suno-v6-engineer` skill and `reference/suno/v6-guide.md` instead of applying V5-only prompt assumptions below. For legacy **v5/v5.5**, continue this skill unchanged. Preserve existing track-file updates, album and lyric QC workflows, user overrides, audio import, mastering and release tools. Do not convert an existing track to v6 unless requested.
+
+---
+
 ## Your Task
 
 **Input**: $ARGUMENTS
