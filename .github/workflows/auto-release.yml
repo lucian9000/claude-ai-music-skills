@@ -15,7 +15,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
       with:
         fetch-depth: 0  # Full history for tagging
 
@@ -126,8 +126,9 @@ jobs:
         # Update version files
         jq ".version = \"$DEV_VERSION\"" .claude-plugin/plugin.json > /tmp/plugin.json && mv /tmp/plugin.json .claude-plugin/plugin.json
         jq ".plugins[0].version = \"$DEV_VERSION\"" .claude-plugin/marketplace.json > /tmp/marketplace.json && mv /tmp/marketplace.json .claude-plugin/marketplace.json
+        jq ".version = \"$DEV_VERSION\"" .codex-plugin/plugin.json > /tmp/codex-plugin.json && mv /tmp/codex-plugin.json .codex-plugin/plugin.json
 
-        git add .claude-plugin/plugin.json .claude-plugin/marketplace.json
+        git add .claude-plugin/plugin.json .claude-plugin/marketplace.json .codex-plugin/plugin.json
         git diff --cached --quiet && { echo "No version change needed, skipping"; exit 0; }
         git commit -m "chore: bump develop to $DEV_VERSION"
         git push origin develop

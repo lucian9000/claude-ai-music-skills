@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
 
       - name: Check plugin.json for -dev version
         run: |
@@ -67,3 +67,15 @@ jobs:
           fi
 
           echo "✓ Marketplace version $VERSION is a release version"
+
+      - name: Check .codex-plugin/plugin.json for -dev version
+        run: |
+          VERSION=$(python3 -c "import json; print(json.load(open('.codex-plugin/plugin.json'))['version'])")
+          echo "Codex plugin version: $VERSION"
+
+          if echo "$VERSION" | grep -q '\-dev'; then
+            echo "::error::.codex-plugin/plugin.json has dev version '$VERSION'. Release versions only on main."
+            exit 1
+          fi
+
+          echo "✓ Codex plugin version $VERSION is a release version"
